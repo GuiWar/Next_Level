@@ -1,63 +1,35 @@
-import {html,repeat} from '@microsoft/fast-element';
-import type {Home} from './home';
-import {positionColumnDefs} from './positionColumnDefs';
-import {sync} from '@genesislcap/foundation-utils';
-import {positionGridStyles} from "./positionsGrid.styles";
+import { html, ref} from '@microsoft/fast-element';
+import { ExampleChart } from './example-chart/example-chart';
+import type { Home } from './home';
+import { InsertTradesForm } from './insert-trades-form/insert-trades-form';
+import { PositionsGrid } from './positions-grid/positions-grid';
+import { TradesGrid } from './trades-grid/trades-grid';
+
+// Need to call custom element constructors to register them as custom elements
+ExampleChart;
+InsertTradesForm;
+PositionsGrid;
+TradesGrid;
 
 export const HomeTemplate = html<Home>`
-<div class="row-split-layout">
-    <div class="column-split-layout">
-        <zero-grid-pro persist-column-state-key="position-grid-settings">
-            <slotted-styles :styles=${() => positionGridStyles}></slotted-styles>
-            <grid-pro-genesis-datasource
-                resource-name="ALL_POSITIONS"
-            ></grid-pro-genesis-datasource>
-            ${repeat(
-                () => positionColumnDefs,
-                html`
-                    <grid-pro-column :definition="${(x) => x}"></grid-pro-column>
-                `
-            )}
-            <grid-pro-column :definition="${(x) => x.singlePositionActionColDef}"></grid-pro-column>
-        </zero-grid-pro>
-    </div>
-    <div class="column-split-layout">
-        <zero-grid-pro persist-column-state-key="position-grid-settings">
-            <grid-pro-genesis-datasource
-                resource-name="ALL_TRADES"
-            ></grid-pro-genesis-datasource>
-        </zero-grid-pro>
-    </div>
-</div>
-<div class="row-split-layout">
-    <div class="column-split-layout">
-        <zero-text-field
-            :value=${sync(x=> x.quantity)}>
-            Quantity
-        </zero-text-field>
-        <zero-text-field
-            :value=${sync(x=> x.price)}>
-            Price
-        </zero-text-field>
-        <span>Instrument</span>
-        <zero-select :value=${sync(x=> x.instrument)}>
-            ${repeat(x => x.tradeInstruments, html`
-            <zero-option value=${x => x.value}>${x => x.label}</zero-option>
-            `)}
-        </zero-select>
-        <span>Side</span>
-        <zero-select :value=${sync(x=> x.side)}>
-            <zero-option>BUY</zero-option>
-            <zero-option>SELL</zero-option>
-        </zero-select>
-        <zero-button @click=${x=> x.insertTrade()}>Add Trade</zero-button>
-    </div>
-    <zero-g2plot-chart type="pie" :config=${(x) => x.chartConfiguration}>
-        <chart-datasource
-        resourceName="ALL_POSITIONS"
-        server-fields="INSTRUMENT_ID VALUE"
-        isSnapshot
-        ></chart-datasource>
-    </zero-g2plot-chart>
-</div>
+  <zero-layout auto-save-key="tutorial-app-layout-key" ${ref('layout')}>
+    <zero-layout-region type="horizontal">
+      <zero-layout-region type="vertical">
+        <zero-layout-item title="Position Grid">
+          <positions-grid></positions-grid>
+        </zero-layout-item>
+        <zero-layout-item title="Trades Grid">
+          <trades-grid></trades-grid>
+        </zero-layout-item>
+      </zero-layout-region>
+      <zero-layout-region type="vertical">
+        <zero-layout-item title="Trades Form">
+          <insert-trades-form></insert-trades-form>
+        </zero-layout-item>
+        <zero-layout-item title="Chart">
+          <example-chart></example-chart>
+        </zero-layout-item>
+      </zero-layout-region>
+    </zero-layout-region>
+  </zero-layout>
 `;
