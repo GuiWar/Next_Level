@@ -13,4 +13,19 @@ export class Home extends FASTElement {
   constructor() {
     super();
   }
+
+    public singlePositionActionColDef = {
+      headerName: 'Action',
+      minWidth: 120,
+      maxWidth: 120,
+      cellRenderer: 'action',
+      cellRendererParams: {
+        actionClick: async (rowData) => {
+          console.log(rowData);
+        },
+        actionName: 'Add Trade',
+        appearance: 'primary-gradient',
+      },
+      pinned: 'right',
+    };
 }
