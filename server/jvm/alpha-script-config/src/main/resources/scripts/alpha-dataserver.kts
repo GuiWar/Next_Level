@@ -9,5 +9,6 @@
  * Modification History
  */
 dataServer {
-
+    query("ALL_POSITIONS", POSITION)
+    query("ALL_TRADES", TRADE_VIEW)
 }

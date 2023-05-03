@@ -9,5 +9,5 @@
  * Modification History
  */
 requestReplies {
-
+    requestReply(INSTRUMENT)
 }
