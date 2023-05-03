@@ -27,6 +27,12 @@ views {
             COUNTERPARTY.COUNTERPARTY_NAME withPrefix COUNTERPARTY
             INSTRUMENT.INSTRUMENT_SYMBOL withPrefix INSTRUMENT
             INSTRUMENT.CURRENCY_ID withAlias "CURRENCY"
+
+            derivedField("CONSIDERATION", DOUBLE) {
+                withInput(TRADE.QUANTITY, TRADE.PRICE) { QUANTITY, PRICE ->
+                    QUANTITY * PRICE
+                }
+            }
         }
     }
 }
