@@ -1,0 +1,26 @@
+{
+  "appName": "alpha",
+  "appSeed": {
+    "type": "remote",
+    "name": "Quick Start Application",
+    "about": "The quick start application seed.",
+    "vcsUrl": "https://genesisglobal.jfrog.io/artifactory/api/vcs",
+    "vcsOperation": "downloadBranch",
+    "vcsRemote": "github-repos",
+    "remoteUser": "genesiscommunitysuccess",
+    "remoteRepo": "blank-app-seed",
+    "remoteBranch": "master",
+    "remoteName": "upstream",
+    "gitOptions": {
+      "--rebase": "true"
+    }
+  },
+  "pkgScope": "genesislcap",
+  "pkgName": "alpha",
+  "dsName": "alpha",
+  "baseDsPackage": "@genesislcap/foundation-ui",
+  "apiHost": "ws://localhost/gwf/",
+  "groupId": "global.genesis",
+  "applicationVersion": "1.0.0-SNAPSHOT",
+  "localGenId": "ALPHA"
+}
