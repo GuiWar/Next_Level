@@ -23,7 +23,7 @@ export class Home extends FASTElement {
         actionClick: async (rowData) => {
           console.log(rowData);
         },
-        actionName: 'Add Trade',
+        actionName: 'Print',
         appearance: 'primary-gradient',
       },
       pinned: 'right',
