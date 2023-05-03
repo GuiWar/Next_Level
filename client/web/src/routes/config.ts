@@ -16,6 +16,7 @@ import { Route, RouterConfiguration } from '@microsoft/fast-router';
 import { defaultLayout, loginLayout } from '../layouts';
 import { Home } from './home/home';
 import { NotFound } from './not-found/not-found';
+import { Users } from '@genesislcap/foundation-entity-management';
 
 export class MainRouterConfig extends RouterConfiguration<LoginSettings> {
   constructor(
@@ -29,7 +30,10 @@ export class MainRouterConfig extends RouterConfiguration<LoginSettings> {
     super();
   }
 
-  public allRoutes = [{ index: 1, path: 'home', title: 'Home', icon: 'home', variant: 'solid' }];
+    public allRoutes = [
+      { index: 1, path: 'home', title: 'Home', icon: 'home', variant: 'solid' },
+      { index: 2, path: 'users', title: 'Users', icon: 'users', variant: 'solid' }
+    ];
 
   public configure() {
     this.title = 'Blank App Demo';
@@ -64,7 +68,8 @@ export class MainRouterConfig extends RouterConfiguration<LoginSettings> {
         childRouters: true,
       },
       { path: 'home', element: Home, title: 'Home', name: 'home' },
-      { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found' }
+      { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found' },
+      { path: 'users', element: Users, title: 'Users', name: 'users'},
     );
 
     const auth = this.auth;
