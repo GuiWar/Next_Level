@@ -43,4 +43,15 @@
         <description>Server one-shot requests for details</description>
         <language>pal</language>
     </process>
+    <process name="ALPHA_CONSOLIDATOR">
+        <groupId>ALPHA</groupId>
+        <start>true</start>
+        <options>-Xmx256m -DRedirectStreamsToLog=true -DXSD_VALIDATE=false</options>
+        <module>genesis-pal-consolidator</module>
+        <package>global.genesis.pal.consolidator</package>
+        <script>alpha-consolidator.kts</script>
+        <description>Consolidates trades to calculate positions</description>
+        <loggingLevel>DEBUG,DATADUMP_ON</loggingLevel>
+        <language>pal</language>
+    </process>
 </processes>
