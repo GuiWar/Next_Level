@@ -7,6 +7,7 @@ import global.genesis.db.statemachine.StateMachine
 import global.genesis.db.statemachine.Transition
 import global.genesis.gen.dao.Trade
 import global.genesis.gen.dao.enums.TradeStatus
+import global.genesis.db.rx.entity.multi.AsyncMultiEntityReadWriteGenericSupport
 
 @Module
 class TradeStateMachine @Inject constructor(
@@ -52,16 +53,35 @@ class TradeStateMachine @Inject constructor(
         }
     }
 
-    suspend fun insert(trade: Trade): Transition<Trade, TradeStatus, TradeEffect> = internalState.create(trade)
+    suspend fun insert(
+        transaction: AsyncMultiEntityReadWriteGenericSupport,
+        trade: Trade
+    ): Transition<Trade, TradeStatus, TradeEffect> =
+        internalState.withTransaction(transaction) {
+            create(trade)
+        }
 
-    suspend fun modify(tradeId: String, modify: suspend (Trade) -> Unit): Transition<Trade, TradeStatus, TradeEffect>? =
-        internalState.update(Trade.ById(tradeId)) { trade, _ -> modify(trade) }
+    suspend fun modify(
+        transaction: AsyncMultiEntityReadWriteGenericSupport,
+        tradeId: String, modify: suspend (Trade) -> Unit
+    ): Transition<Trade, TradeStatus, TradeEffect>? =
+        internalState.withTransaction(transaction) {
+            update(Trade.ById(tradeId)) { trade, _ ->
+                modify(trade)
+            }
+        }
 
-    suspend fun modify(trade: Trade): Transition<Trade, TradeStatus, TradeEffect>? = internalState.update(trade)
-}
+    suspend fun modify(
+        transaction: AsyncMultiEntityReadWriteGenericSupport,
+        trade: Trade
+    ): Transition<Trade, TradeStatus, TradeEffect>? =
+        internalState.withTransaction(transaction) {
+            update(trade)
+        }
 
-sealed class TradeEffect {
-    object New : TradeEffect()
-    object Allocated : TradeEffect()
-    object Cancelled : TradeEffect()
+    sealed class TradeEffect {
+        object New : TradeEffect()
+        object Allocated : TradeEffect()
+        object Cancelled : TradeEffect()
+    }
 }

@@ -10,7 +10,7 @@
  */
 
 tables {
-    table (name = "TRADE", id = 11000) {
+    table (name = "TRADE", id = 11000, audit = details(id = 11002, sequence = "TR")) {
         sequence(TRADE_ID, "TR")
         INSTRUMENT_ID not null
         COUNTERPARTY_ID not null
