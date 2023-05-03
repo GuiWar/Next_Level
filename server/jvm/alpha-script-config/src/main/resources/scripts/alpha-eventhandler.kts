@@ -1,4 +1,7 @@
 import global.genesis.TradeStateMachine
+import global.genesis.gen.dao.Trade
+import global.genesis.alpha.message.event.TradeAllocated
+import global.genesis.alpha.message.event.TradeCancelled
 
 eventHandler {
     val stateMachine = inject<TradeStateMachine>()
