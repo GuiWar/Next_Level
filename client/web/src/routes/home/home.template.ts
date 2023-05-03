@@ -27,24 +27,35 @@ export const HomeTemplate = html<Home>`
         </zero-grid-pro>
     </div>
 </div>
-<zero-text-field
-  :value=${sync(x=> x.quantity)}>
-  Quantity
-</zero-text-field>
-<zero-text-field
-  :value=${sync(x=> x.price)}>
-  Price
-</zero-text-field>
-<span>Instrument</span>
-<zero-select :value=${sync(x=> x.instrument)}>
-  ${repeat(x => x.tradeInstruments, html`
-    <zero-option value=${x => x.value}>${x => x.label}</zero-option>
-  `)}
-</zero-select>
-<span>Side</span>
-<zero-select :value=${sync(x=> x.side)}>
-    <zero-option>BUY</zero-option>
-    <zero-option>SELL</zero-option>
-</zero-select>
-<zero-button @click=${x=> x.insertTrade()}>Add Trade</zero-button>
+<div class="row-split-layout">
+    <div class="column-split-layout">
+        <zero-text-field
+            :value=${sync(x=> x.quantity)}>
+            Quantity
+        </zero-text-field>
+        <zero-text-field
+            :value=${sync(x=> x.price)}>
+            Price
+        </zero-text-field>
+        <span>Instrument</span>
+        <zero-select :value=${sync(x=> x.instrument)}>
+            ${repeat(x => x.tradeInstruments, html`
+            <zero-option value=${x => x.value}>${x => x.label}</zero-option>
+            `)}
+        </zero-select>
+        <span>Side</span>
+        <zero-select :value=${sync(x=> x.side)}>
+            <zero-option>BUY</zero-option>
+            <zero-option>SELL</zero-option>
+        </zero-select>
+        <zero-button @click=${x=> x.insertTrade()}>Add Trade</zero-button>
+    </div>
+    <zero-g2plot-chart type="pie" :config=${(x) => x.chartConfiguration}>
+        <chart-datasource
+        resourceName="ALL_POSITIONS"
+        server-fields="INSTRUMENT_ID VALUE"
+        isSnapshot
+        ></chart-datasource>
+    </zero-g2plot-chart>
+</div>
 `;
