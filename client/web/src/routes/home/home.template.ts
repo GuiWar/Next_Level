@@ -2,11 +2,13 @@ import {html,repeat} from '@microsoft/fast-element';
 import type {Home} from './home';
 import {positionColumnDefs} from './positionColumnDefs';
 import {sync} from '@genesislcap/foundation-utils';
+import {positionGridStyles} from "./positionsGrid.styles";
 
 export const HomeTemplate = html<Home>`
 <div class="row-split-layout">
     <div class="column-split-layout">
         <zero-grid-pro persist-column-state-key="position-grid-settings">
+            <slotted-styles :styles=${() => positionGridStyles}></slotted-styles>
             <grid-pro-genesis-datasource
                 resource-name="ALL_POSITIONS"
             ></grid-pro-genesis-datasource>
