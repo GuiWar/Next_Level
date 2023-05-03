@@ -12,6 +12,8 @@ dependencies {
     testImplementation("global.genesis:genesis-dbtest")
     testImplementation("global.genesis:genesis-testsupport")
     testImplementation(project(path = ":alpha-dictionary-cache", configuration = "codeGen"))
+    api(project(":alpha-eventhandler"))
+    api(project(":alpha-messages"))
 }
 
 description = "alpha-script-config"
