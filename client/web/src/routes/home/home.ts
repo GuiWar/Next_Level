@@ -21,20 +21,20 @@ export class Home extends FASTElement {
   }
    @Connect connect: Connect;
 
-   public async insertTrade() {
-     const insertTradeRequest = await this.connect.commitEvent('EVENT_TRADE_INSERT', {
-       DETAILS: {
-         COUNTERPARTY_ID: 'GENESIS',
-         INSTRUMENT_ID: this.instrument,
-         QUANTITY: this.quantity,
-         PRICE: this.price,
-         SIDE: this.side,
-         TRADE_DATETIME: Date.now(),
-       },
-       IGNORE_WARNINGS: true,
-       VALIDATE: false,
-     });
-   }
+     public async insertTrade() {
+       const insertTradeRequest = await this.connect.commitEvent('EVENT_TRADE_INSERT', {
+         DETAILS: {
+           COUNTERPARTY_ID: 'GENESIS',
+           INSTRUMENT_ID: this.instrument,
+           QUANTITY: this.quantity,
+           PRICE: this.price,
+           SIDE: this.side,
+           TRADE_DATETIME: Date.now(),
+         },
+         IGNORE_WARNINGS: true,
+         VALIDATE: false,
+       });
+     }
 
     @observable tradeInstruments: Array<{value: string, label: string}>;
     public async connectedCallback() {
@@ -53,7 +53,7 @@ export class Home extends FASTElement {
         actionClick: async (rowData) => {
           console.log(rowData);
         },
-        actionName: 'Add Trade',
+        actionName: 'Print',
         appearance: 'primary-gradient',
       },
       pinned: 'right',
