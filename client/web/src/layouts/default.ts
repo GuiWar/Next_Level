@@ -36,6 +36,17 @@ export const defaultLayout = new FASTElementLayout(
         show-luminance-toggle-button
         show-misc-toggle-button
         show-notification-button>
+        <div slot="menu-contents">
+            <zero-button
+                appearance="neutral-grey"
+                @click=${(x, c) => {
+                    const { resetLayout } = x.lastChild;
+                    resetLayout();
+                }}
+            >
+                Reset Layout
+            </zero-button>
+        </div>
         ${repeat(
           (x) => x.config.allRoutes,
           html`

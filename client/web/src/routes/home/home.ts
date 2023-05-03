@@ -2,6 +2,8 @@ import { customElement, FASTElement, observable } from '@microsoft/fast-element'
 import { HomeTemplate as template } from './home.template';
 import { HomeStyles as styles } from './home.styles';
 import {Connect} from '@genesislcap/foundation-comms';
+import { FoundationLayout } from '@genesislcap/foundation-layout';
+import { HOME_DEFAULT_LAYOUT } from './predefined-layouts';
 
 const name = 'home-route';
 
@@ -11,6 +13,7 @@ const name = 'home-route';
   styles,
 })
 export class Home extends FASTElement {
+    layout: FoundationLayout;
     @observable public quantity: string;
     @observable public price: string;
     @observable public instrument: string;
@@ -35,6 +38,16 @@ export class Home extends FASTElement {
   constructor() {
     super();
   }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.resetLayout = this.resetLayout.bind(this);
+  }
+
+  resetLayout() {
+    this.layout.loadLayout(JSON.parse(HOME_DEFAULT_LAYOUT));
+  }
+
    @Connect connect: Connect;
 
    public async insertTrade() {
@@ -53,13 +66,7 @@ export class Home extends FASTElement {
    }
 
     @observable tradeInstruments: Array<{value: string, label: string}>;
-    public async connectedCallback() {
-        super.connectedCallback();
 
-        const tradeInstrumentsRequest = await this.connect.request('INSTRUMENT');
-        this.tradeInstruments = tradeInstrumentsRequest.REPLY?.map(instrument => ({value: instrument.INSTRUMENT_ID, label: instrument.INSTRUMENT_ID}));
-        this.instrument = this.tradeInstruments[0].value;
-    }
     public singlePositionActionColDef = {
       headerName: 'Action',
       minWidth: 120,
