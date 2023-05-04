@@ -4,4 +4,4 @@ export const positionColumnDefs = [
   {field: 'NOTIONAL', headerName: 'Traded Value', type: 'rightAligned', flex: 1, enableCellChangeFlash: true},
   {field: 'VALUE', headerName: 'Market Value', type: 'rightAligned', flex: 1, enableCellChangeFlash: true},
   {field: 'PNL', headerName: 'PNL', type: 'rightAligned', flex: 1, cellClass: (params) => params.value > 0 ? 'profit' : 'loss', enableCellChangeFlash: true},
-];
+  ];
